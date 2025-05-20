@@ -1625,19 +1625,36 @@ tamen trae un liveServer con hard reloading para ver os cambios ao momento.
 ## Configuración
 Para a configuración, usaremos `vite.config.js`.
 ````js
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
-import tailwindcss from '@tailwindcss/vite';
-
 export default defineConfig({
+    server: {
+        host: '0.0.0.0',
+        port: 5173,
+        strictPort: true,
+        watch: {
+            usePolling: true,
+        },
+        hmr: {
+            host: 'localhost', // Needed for hot reloading to work on host
+            //port: 5174,       // The port exposed to your host
+            protocol: 'ws',
+            clientPort: 5174,
+        }
+    },
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
         }),
+        tailwindcss(),
     ],
 });
 ````
+
+Basicamente, para configurar o servidor usaremos o atributo server, e para configurar
+o hardreloading faremolo en hmr. Como se pode ver neste caso poñemos no clientPort
+o 5174, xa que estamos usando docker e temos o puerto 5173 mappeado a ese, se non 
+o indicaremos o navegador intentaría conectarse ao 5153, e ao estar no equipo anfitrión
+non o vería.
 
 Explicación rapidilla:
 * `laravel`: laravel vite plugin onde lle indicamos como integrarse con laravel
@@ -1645,6 +1662,53 @@ Explicación rapidilla:
   * `refresh`: habilita hot-reloading
 
 </details>
+
+## Ejecución
+Despois poderemos usalo tanto en entorno de dev como en pro. En dev, levantamos
+un servidor con npm que terá os resources indicados, e ao actualizalos mostraranse
+automaticamente no navegador os cambios.
+
+### Dev
+Para levantar o servidor:
+```shell
+npm run dev
+```
+
+### Pro
+Para pro, o que faremos será u build de todos os resources, que usaremos directamente
+no codigo.
+```shell
+npm run build
+```
+Laravel xa vai detectar se estamos en dev ou en pro, xa que se estamos en dev
+e o servidor esta correndo vai existir o ficheiro `public/hot`.
+
+⚠️ Se quixeramos engadir por ejemplo unha carpeta de imagenes nos resources
+que van estar no build, teremos que indicalo, porque senon vai petar en produccion.
+Para eso indicaremolo no arquivo `resources/app.js`:
+```js
+import './bootstrap';
+
+import.meta.glob([
+   "../images/**"
+]);
+```
+Neste caso indicamoslle que as pille todas as imagenes na carpeta `resources/images`.
+
+## Uso
+Para incluir o css e js nas vistas:
+```php
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+```
+
+### Assets
+Tamen podemos usar vite para incluir assets, como imagenes:
+```php
+
+```
+
+# Tailwind
+
 
 
 
