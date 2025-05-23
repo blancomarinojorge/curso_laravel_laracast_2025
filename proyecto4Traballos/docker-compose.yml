@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        UID: "${UID}"
+        GID: "${GID}"
     container_name: laravel_app_3               # Changed container name
     ports:
       - "8002:8000"   # Changed Laravel port to avoid 8001
@@ -16,6 +19,10 @@ services:
       - mysql
     networks:
       - laravel3                                 # Changed network name
+    user: "${UID}:${GID}"
+    environment:
+      - UID=${UID}
+      - GID=${GID}
 
   mysql:
     image: mysql:8.0
