@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
+
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body class="bg-black text-white">
+<body class="bg-black text-white font-hanken-grotesk">
 <div class="px-10">
     <nav class="flex flex-row justify-between py-5 align-middle">
         <div>

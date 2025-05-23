@@ -1,5 +1,4 @@
-<div class="flex items-center gap-2">
-    <span class="w-2 h-2 inline-block bg-white"></span>
-    <h3 class="font-bold text-lg">{{ $slot }}</h3>
+<div class="flex gap-2 items-center">
+    <span class="w-2 h-2 bg-white inline-block"></span>
+    <div class="text-xl font-bold">{{ $slot }}</div>
 </div>
-

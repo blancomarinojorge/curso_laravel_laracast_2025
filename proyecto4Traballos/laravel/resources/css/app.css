@@ -1,1 +1,6 @@
 @import 'tailwindcss';
+
+@theme{
+    --font-hanken-grotesk: 'Hanken Grotesk', 'sans serif';
+    --text-2xs: 0.625rem;
+}
