@@ -2,9 +2,10 @@
     <div class="space-y-10">
         <section class="text-center flex flex-col gap-8 mt-30">
             <h1 class="font-bold text-4xl">Lets find your next job</h1>
-            <form action="">
-                <input type="text" placeholder="Web developer..." class="rounded-xl bg-white/10 border-white/30 px-5 py-4 w-full max-w-xl">
-            </form>
+
+            <x-forms.form action="{{ route('searchJob') }}" class="flex">
+                <x-forms.input :label="false" name="q" placeholder="Web developer..." class="max-w-xl"></x-forms.input>
+            </x-forms.form>
         </section>
 
         <section class="mt-20">

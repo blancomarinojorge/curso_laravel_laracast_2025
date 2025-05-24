@@ -24,7 +24,19 @@
                 <li><a href="" >Jobs</a></li>
             </ul>
         </div>
-        <div>login</div>
+        <div>
+            @auth
+                <form method="POST" action="{{ route('login.destroy') }}">
+                    @csrf
+                    @method('DELETE')
+                    <button class="hover:opacity-70 hover:cursor-pointer" type="submit">Logout</button>
+                </form>
+            @endauth
+
+            @guest
+                <a href="{{ route('login') }}">Login</a>
+            @endguest
+        </div>
     </nav>
     <main class="mt-10 max-w-[936px] mx-auto">
         {{ $slot }}
